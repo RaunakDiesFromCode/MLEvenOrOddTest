@@ -7,9 +7,7 @@ from tensorflow.keras.optimizers import Adam
 
 # Function to generate data
 def generate_data(n_samples=1000):
-    # Generate random numbers
     X = np.random.randint(0, 1000, n_samples)
-    # Labels: 0 if even, 1 if odd
     y = X % 2
     return X, y
 
@@ -20,15 +18,12 @@ X, y = generate_data()
 # Define the model
 model = Sequential(
     [
-        Dense(64, input_dim=1, activation="relu"),  # Input layer
-        Dense(32, activation="relu"),  # Hidden layer
-        Dense(
-            1, activation="sigmoid"
-        ),  # Output layer (sigmoid for binary classification)
+        Dense(64, input_dim=1, activation="relu"),
+        Dense(32, activation="relu"),
+        Dense(1, activation="sigmoid"),
     ]
 )
 
-# Compile the model
 model.compile(optimizer=Adam(), loss="binary_crossentropy", metrics=["accuracy"])
 
 # Train the model
@@ -45,6 +40,9 @@ def predict_even_odd(number):
 
 
 # Test the model
-test_number = int(input("Enter a number to classify as Even or Odd: "))
-result = predict_even_odd(test_number)
-print(f"The number {test_number} is {result}.")
+while True:
+  test_number = input("Enter a number to classify as Even or Odd (or type 'exit' to quit): ")
+  if test_number == 'exit':
+    break
+  result = predict_even_odd(int(test_number))
+  print(f"The number {test_number} is {result}.")
